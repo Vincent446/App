@@ -93,3 +93,6 @@ body{
    margin: 0 auto;
    text-align: center;
  }
+section ul li a {
+  float: right;
+}

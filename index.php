@@ -6,10 +6,7 @@
   if (isset($_POST['addTask'])) {
     addTask();
   }
-
- ?>
-
-
+?>
 
 <!DOCTYPE html>
 <html>
@@ -30,13 +27,20 @@
       <h2>Att göra:</h2>
       <ul>
         <?php
-          $query = "SELECT title FROM tasks WHERE user_id = {$_SESSION['id']} " ;
+          $query = "SELECT * FROM tasks WHERE user_id = {$_SESSION['id']} " ;
           $result = mysqli_query($connection, $query);
 
-          while ($row = mysqli_fetch_array($result)) {
-            echo "<li>" . $row['title'] . "</li>";
-          }
+          while ($row = mysqli_fetch_array($result)) :
          ?>
+
+        <li>
+          <?php echo $row['title']; ?>
+          <a href="edit.php?taskID=<?php echo $row['id']; ?>&taskName=<?php echo $row['title']; ?>">Edit</a>
+          <a href="delete.php?taskID=<?php echo $row['id']; ?>">X</a>
+        </li>
+
+       <?php endwhile; ?>
+
       </ul>
       <form action="index.php" method="post">
         <input type="text" name="taskName">
