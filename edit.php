@@ -1,7 +1,7 @@
 <?php
   $currentTaskName = $_GET['taskName'];
   $taskID = $_GET['taskID'];
-  $title = "Ändra" . $currentTaskName . "?";
+  $title = "Edit " . $currentTaskName . "?";
   include 'includes/header.php';
 
   if (isset($_POST['editTask'])) {
@@ -10,7 +10,7 @@
 
     $query  = "UPDATE tasks SET title='$newTaskName' WHERE id = '$taskID'";
     $editTaskQuery = mysqli_query($connection, $query);
-    header("Location: index.php");
+    header("Location: admin.php");
   }
  ?>
 
@@ -19,5 +19,5 @@
   <input type="hidden" name="taskID" value="<?php echo $taskID; ?>">
   <input type="text" name="taskName" value="<?php echo $currentTaskName ?>">
   <input type="submit" name="editTask" value="ändra">
-  <a href="index.php">avbryt</a>
+  <a href="admin.php">avbryt</a>
 </form>

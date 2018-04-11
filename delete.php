@@ -1,4 +1,8 @@
 <?php
+$currentTaskName = $_GET['taskName'];
+$taskID = $_GET['taskID'];
+$title = "Delete" . $currentTaskName . "?";
+
   include 'includes/header.php';
 
   if (!empty($_GET['taskID'])) {
@@ -9,7 +13,7 @@
     $taskID = $_POST['taskID'];
     $query = "DELETE FROM tasks WHERE id = $taskID";
     $deleteTaskQuery = mysqli_query($connection, $query);
-    header("Location: index.php");
+    header("Location: admin.php");
   }
  ?>
 
@@ -17,7 +21,7 @@
   <input type="hidden" name="taskID" value="<?php echo $taskID; ?>">
   <h2>Är du säker på att du vill radera detta inlägg?</h2>
   <input type="submit" name="deleteTask" value="Ja">
-  <a href="index.php">Nej</a>
+  <a href="admin.php">Nej</a>
 </form>
 
  </body>

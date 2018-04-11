@@ -1,50 +1,29 @@
 <?php
 
   $title = 'Logga in';
+  $bodyClass = "d-flex justify-content-center align-items-center";
   $bodyID = 'login';
-  session_start();
-
-  include 'includes/db.php';
   include 'includes/header.php';
+  session_start();
+  $errorMessage = '';
 
   if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $query = "SELECT * FROM users WHERE username = '{$username}' ";
-    $select_user_query = mysqli_query($connection, $query);
-
-    if (!$select_user_query) {
-      die('Query failed') . mysqli_error($connection);
-    }
-
-    while ($row = mysqli_fetch_array($select_user_query)) {
-
-      $db_id = $row['id'];
-      $db_username = $row['username'];
-      $db_password = $row['password'];
-
-    }
-
-    if ($username === $db_username && $password === $db_password) {
-      $_SESSION['id'] = $db_id;
-      $_SESSION['username'] = $db_username;
-      Header("Location: index.php");
-    }
-
-    else {
-      header("Location: login.php");
-    }
-
+    loginUser();
+    $errorMessage = loginUser();
   }
  ?>
 
- <form class="login" action="login.php" method="post">
-   <h3>LOGGA IN</h3>
-   <input type="text" name="username" placeholder="Användarnamn">
-   <input type="password" name="password" placeholder="Lösenord">
-   <input id="button" type="submit" name="login" value="LOGGA IN">
+ <form class="col-12 col-sm-8 col-lg-4 login animated fadeInDown" action="login.php" method="post">
+   <h3 class="formHeading">Logga in</h3>
+   <div class="form-group">
+   <input class="form-control" type="text" name="username" placeholder="Användarnamn" required autofocus>
+   </div>
+   <div class="form-group">
+   <input class="form-control" type="password" name="password" placeholder="Lösenord" required>
+   </div>
+   <input class="btn btn-block" id="button" type="submit" name="login" value="Logga in">
+   <a class="form-text text-muted text-center" href="register.php">Ny användare? Registrera dig här</a>
  </form>
 
-  </body>
-</html>
+
+<?php include "includes/footer.php"; ?>
